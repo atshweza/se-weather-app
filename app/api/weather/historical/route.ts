@@ -1,6 +1,7 @@
 import { publicIpv4 } from 'public-ip';
 
 import { appConfig } from '@/utils/configs';
+import getPastThreeDates from '@/utils/getPastThreeDates';
 
 export async function GET() {
   const ip = await publicIpv4();
@@ -8,7 +9,7 @@ export async function GET() {
     const options = {
       method: 'GET',
     };
-    const url = `${appConfig.apiWeatherBaseUrl}/current?access_key=${appConfig.apiKey}&query=${ip}`;
+    const url = `${appConfig.apiWeatherBaseUrl}/current?access_key=${appConfig.apiKey}&query=${ip}&& historical_date=${getPastThreeDates}&interval=24`;
     console.log('url', url);
     const response = await fetch(url, options);
 

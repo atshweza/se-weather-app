@@ -8,7 +8,7 @@ export async function GET() {
     const options = {
       method: 'GET',
     };
-    const url = `${appConfig.apiWeatherBaseUrl}/current?access_key=${appConfig.apiKey}&query=${ip}`;
+    const url = `${appConfig.apiWeatherBaseUrl}/forecast?access_key=${appConfig.apiKey}&query=${ip}&forecast_days=3&interval=24`;
     console.log('url', url);
     const response = await fetch(url, options);
 
