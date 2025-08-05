@@ -8,8 +8,10 @@ export async function GET() {
     const options = {
       method: 'GET',
     };
-    const url = `${appConfig.apiWeatherBaseUrl}/current?access_key=${appConfig.apiKey}&query=${ip}`;
-    console.log('url', url);
+    if (!appConfig.apiKey) return new Response('Authorized', { status: 404 });
+
+    const url = `${appConfig.apiWeatherBaseUrl}/v1/current.json?key=${appConfig.apiKey}&q=${ip}&aqi=no&alerts=no`;
+
     const response = await fetch(url, options);
 
     if (!response.ok) {

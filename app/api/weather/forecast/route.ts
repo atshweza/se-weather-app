@@ -4,12 +4,16 @@ import { appConfig } from '@/utils/configs';
 
 export async function GET() {
   const ip = await publicIpv4();
+  const days = 3;
+
   try {
     const options = {
       method: 'GET',
     };
-    const url = `${appConfig.apiWeatherBaseUrl}/forecast?access_key=${appConfig.apiKey}&query=${ip}&forecast_days=3&interval=24`;
-    console.log('url', url);
+    if (!appConfig.apiKey) return new Response('Authorized', { status: 404 });
+
+    const url = `${appConfig.apiWeatherBaseUrl}/v1/forecast.json?key=${appConfig.apiKey}&q=${ip}&days=${days}&aqi=no&alerts=no`;
+
     const response = await fetch(url, options);
 
     if (!response.ok) {
