@@ -13,7 +13,7 @@ export async function GET() {
   try {
     const options = { method: 'GET' };
     const dates = getPastThreeDates();
-    const results: unknown[] = [];
+    const results: ForecastResponse[] = [];
 
     for (const date of dates) {
       const url = `${appConfig.apiWeatherBaseUrl}/v1/history.json?key=${appConfig.apiKey}&q=${ip}&dt=${date}`;
@@ -23,7 +23,7 @@ export async function GET() {
         return new Response(`Failed to fetch weather for ${date}`, { status: response.status });
       }
 
-      const data = await response.json();
+      const data = (await response.json()) as ForecastResponse;
       results.push(data);
     }
 

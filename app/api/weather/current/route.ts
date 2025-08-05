@@ -17,7 +17,7 @@ export async function GET() {
     if (!response.ok) {
       return new Response('Failed to fetch weather', { status: response.status });
     }
-    const result = await response.json();
+    const result = (await response.json()) as CurrentResponse;
     return Response.json(result);
   } catch (error) {
     return new Response(`Something went wrong fetching Weather`, { status: 500 });
