@@ -3,6 +3,11 @@
 :root {
   --background: #2a566d;
   --foreground: #16394c;
+  --cloud-color-1: #93c5fd; /* light blue */
+  --cloud-color-2: #60a5fa; /* darker blue */
+  --sway-distance: 6px;
+  --sway-duration: 3s;
+  --spin-duration: 6s;
 }
 
 @theme inline {
@@ -18,7 +23,32 @@
     --foreground: #ededed;
   }
 }
-
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sway {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(var(--sway-distance, 6px));
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow var(--spin-duration, 6s) linear infinite;
+}
+.animate-sway {
+  animation: sway var(--sway-duration, 3s) ease-in-out infinite;
+}
+.dark {
+  --cloud-color-1: #3b82f6;
+  --cloud-color-2: #2563eb;
+}
 body {
   background: var(--background);
   color: var(--foreground);

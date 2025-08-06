@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="">
       <Header />
-      <main className="w-full">
+      <main className="w-full p-4">
         <WeatherForecast />
       </main>
     </div>
