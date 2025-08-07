@@ -3,7 +3,9 @@ import { publicIpv4 } from 'public-ip';
 import { appConfig } from '@/utils/configs';
 import getPastThreeDates from '@/utils/getPastThreeDates';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const searchLocation = searchParams.get('q');
   const ip = await publicIpv4();
 
   if (!appConfig.apiKey) {
