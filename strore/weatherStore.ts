@@ -3,9 +3,9 @@ import { persist } from 'zustand/middleware';
 
 interface AppState {
   searchText: string;
-  currentDay: Current | undefined;
+  activeForecastDay: Current | undefined;
   setSearchText: (text: string) => void;
-  setCurrentDay: (current: Current) => void;
+  setActiveForecastDay: (current: Current) => void;
 }
 
 interface WeatherForecastState {
@@ -20,9 +20,9 @@ export const useWeatherStore = create<WeatherStore>()(
   persist(
     (set, get) => ({
       searchText: '',
-      currentDay: undefined,
+      activeForecastDay: undefined,
       setSearchText: (text) => set({ searchText: text }),
-      setCurrentDay: (current) => set({ currentDay: current }),
+      setActiveForecastDay: (current) => set({ activeForecastDay: current }),
 
       forecast: undefined,
       setForecast: (data) =>

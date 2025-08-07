@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { useWeatherStore } from '@/strore/weatherStore';
 import { useQuery } from '@tanstack/react-query';
 
-import WeatherDetails from '../WeatherDetails/WeatherDetails';
 import WeatherSummerCard from '../WeatherSummerCard/WeatherSummerCard';
 
 async function fetchWeatherForecast(searchLocation: string) {

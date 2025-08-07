@@ -1,7 +1,11 @@
+'use client';
+
 import React from 'react';
 
+import { useWeatherStore } from '@/strore/weatherStore';
 import getDayOfWeek from '@/utils/getDayOfWeek';
 import { getWeatherIcon } from '@/utils/getWeatherIcon';
+import mapForecastDayToCurrent from '@/utils/mapForecastDayToCurrent';
 
 type WeatherSummerCardProps = {
   forecastDay?: ForecastDay;
@@ -10,10 +14,11 @@ type WeatherSummerCardProps = {
   size?: number;
 };
 const WeatherSummerCard: React.FC<WeatherSummerCardProps> = ({ forecastDay, current, short = false, size = 6 }) => {
+  const setActiveForecastDay = useWeatherStore((state) => state.setActiveForecastDay);
   return (
     <>
       {forecastDay && (
-        <div className="text-white font-bold text-center items-center">
+        <div onClick={() => setActiveForecastDay(mapForecastDayToCurrent(forecastDay))} className="text-white font-bold text-center items-center">
           <h1>{getDayOfWeek(forecastDay.date, short)}</h1>
           <div className="w-full">{getWeatherIcon(forecastDay.day.condition.code, size)}</div>
           <div className="font-extralight">{forecastDay.day.avgtemp_c}</div>
