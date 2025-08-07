@@ -2,8 +2,12 @@ import { publicIpv4 } from 'public-ip';
 
 import { appConfig } from '@/utils/configs';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const searchLocation = searchParams.get('q');
   const ip = await publicIpv4();
+  let locationQuery = ip;
+  if (searchLocation) locationQuery = searchLocation;
   const days = 4;
 
   try {
@@ -12,7 +16,7 @@ export async function GET() {
     };
     if (!appConfig.apiKey) return new Response('Authorized', { status: 404 });
 
-    const url = `${appConfig.apiWeatherBaseUrl}/v1/forecast.json?key=${appConfig.apiKey}&q=${ip}&days=${days}&aqi=no&alerts=no`;
+    const url = `${appConfig.apiWeatherBaseUrl}/v1/forecast.json?key=${appConfig.apiKey}&q=${locationQuery}&days=${days}&aqi=no&alerts=no`;
 
     const response = await fetch(url, options);
 

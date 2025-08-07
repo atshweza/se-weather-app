@@ -1,12 +1,15 @@
+'use client';
+
 import React from 'react';
+
+import { useWeatherStore } from '@/strore/weatherStore';
 
 import WeatherSummerCard from '../WeatherSummerCard/WeatherSummerCard';
 
-type WeatherDetailsProps = {
-  current?: Current;
-  location: Location;
-};
-const WeatherDetails: React.FC<WeatherDetailsProps> = ({ current, location }) => {
+const WeatherDetails = () => {
+  const weatherForecast = useWeatherStore((state) => state.forecast);
+  if (!weatherForecast) return <></>;
+  const { current, location } = weatherForecast;
   return (
     <div className="flex flex-col text-white">
       <div className=" text-center font-extrabold">{`${location.name}, ${location.region}, ${location.country}`}</div>
