@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { useWeatherStore } from '@/strore/weatherStore';
+import { formatTemperature } from '@/utils/formatters';
 import getDayOfWeek from '@/utils/getDayOfWeek';
 import { getWeatherIcon } from '@/utils/getWeatherIcon';
 import mapForecastDayToCurrent from '@/utils/mapForecastDayToCurrent';
@@ -21,14 +22,14 @@ const WeatherSummerCard: React.FC<WeatherSummerCardProps> = ({ forecastDay, curr
         <div onClick={() => setActiveForecastDay(mapForecastDayToCurrent(forecastDay))} className="text-white font-bold text-center items-center">
           <h1>{getDayOfWeek(forecastDay.date, short)}</h1>
           <div className="w-full">{getWeatherIcon(forecastDay.day.condition.code, size)}</div>
-          <div className="font-extralight">{forecastDay.day.avgtemp_c}</div>
+          <div className="font-extralight">{formatTemperature(forecastDay.day.avgtemp_c, forecastDay.day.avgtemp_f)}</div>
         </div>
       )}
       {current && (
         <div className="text-white font-bold text-center items-center">
           <h1>{getDayOfWeek(current.last_updated, short)}</h1>
           <div className="w-full">{getWeatherIcon(current.condition.code, size, current.is_day)}</div>
-          <div className="font-extralight">{current.temp_c}</div>
+          <div className="font-extralight">{current.condition.text}</div>
         </div>
       )}
     </>

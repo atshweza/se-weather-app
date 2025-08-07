@@ -1,11 +1,15 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import detectUnitsFromBrowser from '@/utils/detectUnitsFromBrowser';
+
 interface AppState {
   searchText: string;
   activeForecastDay: Current | undefined;
+  units: Units;
   setSearchText: (text: string) => void;
   setActiveForecastDay: (current: Current) => void;
+  setUnits: (units: Partial<Units>) => void;
 }
 
 interface WeatherForecastState {
@@ -21,9 +25,16 @@ export const useWeatherStore = create<WeatherStore>()(
     (set, get) => ({
       searchText: '',
       activeForecastDay: undefined,
+      units: detectUnitsFromBrowser(),
       setSearchText: (text) => set({ searchText: text }),
       setActiveForecastDay: (current) => set({ activeForecastDay: current }),
-
+      setUnits: (newUnits) =>
+        set((state) => ({
+          units: {
+            ...state.units,
+            ...newUnits,
+          },
+        })),
       forecast: undefined,
       setForecast: (data) =>
         set((state) => ({
