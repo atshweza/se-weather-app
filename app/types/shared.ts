@@ -27,3 +27,11 @@ interface ForecastLocation {
   localtime_epoch: number;
   localtime: string;
 }
+
+type Units = {
+  temperature: 'f' | 'c';
+  windSpeed: 'mph' | 'kph';
+  pressure: 'in' | 'mb';
+  visibility: 'miles' | 'km';
+  precipitation: 'in' | 'mm';
+};
