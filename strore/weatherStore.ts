@@ -9,9 +9,9 @@ interface AppState {
 }
 
 interface WeatherForecastState {
-  forecast: Forecast | undefined;
-  setForecastForDay: (forecast: Forecast) => void;
-  getForecastForDay: () => Forecast | undefined;
+  forecast: WeatherForecast | undefined;
+  setForecast: (forecast: WeatherForecast) => void;
+  getForecast: () => WeatherForecast | undefined;
 }
 
 type WeatherStore = AppState & WeatherForecastState;
@@ -25,11 +25,11 @@ export const useWeatherStore = create<WeatherStore>()(
       setCurrentDay: (current) => set({ currentDay: current }),
 
       forecast: undefined,
-      setForecastForDay: (data) =>
+      setForecast: (data) =>
         set((state) => ({
           forecast: data,
         })),
-      getForecastForDay: () => get().forecast,
+      getForecast: () => get().forecast,
     }),
     {
       name: 'weather-forecast-store',
