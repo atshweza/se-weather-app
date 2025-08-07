@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="">
       <Header />
-      <main className="w-full p-4">
+      <main className="w-full h-[92vh] p-4 bg-foreground">
         <WeatherForecast />
       </main>
     </div>

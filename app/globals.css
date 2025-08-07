@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #2a566d;
-  --foreground: #16394c;
+  --background: #16394c;
+  --foreground: #2a566d;
   --cloud-color-1: #93c5fd; /* light blue */
   --cloud-color-2: #60a5fa; /* darker blue */
   --sway-distance: 6px;

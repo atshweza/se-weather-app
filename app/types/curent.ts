@@ -3,7 +3,7 @@ interface Current {
   last_updated: string;
   temp_c: number;
   temp_f: number;
-  is_day: 1 | 0;
+  is_day: boolean;
   condition: Condition;
   wind_mph: number;
   wind_kph: number;

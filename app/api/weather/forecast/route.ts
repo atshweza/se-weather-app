@@ -4,7 +4,7 @@ import { appConfig } from '@/utils/configs';
 
 export async function GET() {
   const ip = await publicIpv4();
-  const days = 3;
+  const days = 4;
 
   try {
     const options = {
