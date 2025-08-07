@@ -17,7 +17,7 @@ interface AirQuality {
   'gb-defra-index'?: number;
 }
 
-interface Location {
+interface ForecastLocation {
   name: string;
   region: string;
   country: string;

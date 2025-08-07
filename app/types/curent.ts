@@ -26,6 +26,6 @@ interface Current {
 }
 
 interface CurrentResponse {
-  location: Location;
+  location: ForecastLocation;
   current: Current;
 }

@@ -4,7 +4,7 @@ import WeatherSummerCard from '../WeatherSummerCard/WeatherSummerCard';
 
 type WeatherDetailsProps = {
   current?: Current;
-  location: Location;
+  location: ForecastLocation;
 };
 const WeatherDetails: React.FC<WeatherDetailsProps> = ({ current, location }) => {
   return (

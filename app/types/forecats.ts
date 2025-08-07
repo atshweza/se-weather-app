@@ -71,10 +71,12 @@ interface ForecastDay {
 }
 
 interface Forecast {
+  location?: ForecastLocation;
+  current?: Current;
   forecastday: ForecastDay[];
 }
 
 interface ForecastResponse {
-  location: Location;
+  location: ForecastLocation;
   forecast: Forecast;
 }
