@@ -40,7 +40,7 @@ export default function WeatherForecast() {
       last_updated: '2025-08-07 10:15',
       temp_c: 13.3,
       temp_f: 55.9,
-      is_day: 0,
+      is_day: 1,
       condition: {
         text: 'Partly Cloudy',
         icon: '//cdn.weatherapi.com/weather/64x64/day/116.png',
