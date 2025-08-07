@@ -9,7 +9,7 @@ export default function SearchInput() {
   const [input, setInput] = useState<string>('');
   const setSearchText = useWeatherStore((state) => state.setSearchText);
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex flex-row gap-2">
       <MagnifyingGlassIcon className="size-8 text-white font-bold -scale-x-100" />
       <input
         data-testid="search-input"
