@@ -2,21 +2,22 @@
 
 import React, { useEffect, useState } from 'react';
 
+import { useWeatherStore } from '@/strore/weatherStore';
 import { useQuery } from '@tanstack/react-query';
 
 import WeatherDetails from '../WeatherDetails/WeatherDetails';
 import WeatherSummerCard from '../WeatherSummerCard/WeatherSummerCard';
 
-async function fetchWeatherForecast() {
-  const response = await fetch('/api/weather/forecast');
+async function fetchWeatherForecast(searchLocation: string) {
+  const response = searchLocation ? await fetch(`/api/weather/forecast?q=${searchLocation}`) : await fetch('/api/weather/forecast');
   if (!response.ok) {
     throw new Error('Failed to fetch posts');
   }
   return response.json();
 }
 
-async function fetchHistoricWeatherForecast() {
-  const response = await fetch('/api/weather/historical');
+async function fetchHistoricWeatherForecast(searchLocation: string) {
+  const response = searchLocation ? await fetch(`/api/weather/historical?q=${searchLocation}`) : await fetch('/api/weather/historical');
   if (!response.ok) {
     throw new Error('Failed to fetch posts');
   }
@@ -7471,6 +7472,8 @@ export default function WeatherForecast() {
       ],
     },
   });
+  const searchText = useWeatherStore((state) => state.searchText);
+  console.log('searchText', searchText);
   // const {
   //   data: forecastData,
   //   isLoading: isLoadingForecast,
