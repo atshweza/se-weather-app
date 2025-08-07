@@ -4,7 +4,7 @@ import { appConfig } from '@/utils/configs';
 
 export async function GET() {
   const ip = await publicIpv4();
-  const days = 3;
+  const days = 4;
 
   try {
     const options = {
@@ -19,7 +19,7 @@ export async function GET() {
     if (!response.ok) {
       return new Response('Failed to fetch weather', { status: response.status });
     }
-    const result = await response.json();
+    const result = (await response.json()) as ForecastResponse;
     return Response.json(result);
   } catch (error) {
     return new Response(`Something went wrong fetching Weather`, { status: 500 });
