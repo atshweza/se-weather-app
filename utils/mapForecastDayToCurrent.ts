@@ -1,0 +1,28 @@
+export default function mapForecastDayToCurrent(forecastDay: ForecastDay): Current {
+  return {
+    last_updated_epoch: forecastDay.date_epoch,
+    last_updated: forecastDay.date,
+    temp_c: forecastDay.day.avgtemp_c,
+    temp_f: forecastDay.day.avgtemp_f,
+    is_day: true,
+    condition: forecastDay.day.condition,
+    wind_mph: forecastDay.day.maxwind_mph,
+    wind_kph: forecastDay.day.maxwind_kph,
+    wind_degree: 0,
+    wind_dir: 'N',
+    pressure_mb: 1013,
+    pressure_in: 29.91,
+    precip_mm: forecastDay.day.totalprecip_mm,
+    precip_in: forecastDay.day.totalprecip_in,
+    humidity: forecastDay.day.avghumidity,
+    cloud: 50,
+    feelslike_c: forecastDay.day.avgtemp_c,
+    feelslike_f: forecastDay.day.avgtemp_f,
+    vis_km: forecastDay.day.avgvis_km,
+    vis_miles: forecastDay.day.avgvis_miles,
+    uv: forecastDay.day.uv ?? 5,
+    gust_mph: forecastDay.day.maxwind_mph,
+    gust_kph: forecastDay.day.maxwind_kph,
+    air_quality: forecastDay.day.air_quality,
+  };
+}
