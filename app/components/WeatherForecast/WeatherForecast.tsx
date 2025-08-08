@@ -22,12 +22,24 @@ async function fetchHistoricWeatherForecast(searchLocation: string) {
   }
   return response.json();
 }
-
+const hasHourExpired = (localtimeEpoch: number) => {
+  if (localtimeEpoch === 0) return true;
+  const nowEpoch = Math.floor(Date.now() / 1000);
+  return nowEpoch - localtimeEpoch >= 3600;
+};
 export default function WeatherForecast() {
   const weatherForecast = useWeatherStore((state) => state.forecast);
   const setForecast = useWeatherStore((state) => state.setForecast);
   const setIsLoadingForecast = useWeatherStore((state) => state.setIsLoadingForecast);
+  const setPreviousSearchText = useWeatherStore((state) => state.setPreviousSearchText);
   const searchText = useWeatherStore((state) => state.searchText);
+  const previousSearchText = useWeatherStore((state) => state.previousSearchText);
+  const hasHydrated = useWeatherStore((state) => state.hasHydrated);
+  const expired = hasHourExpired(weatherForecast?.current.last_updated_epoch ?? 0);
+  const isSearching = searchText.length > 0;
+  const noForecast = !weatherForecast;
+  const wasSearching = previousSearchText.length > 0;
+  const enableWeatherForecastCalls = (expired && !!weatherForecast) || isSearching || wasSearching || noForecast;
 
   const {
     data: historicData,
@@ -39,6 +51,7 @@ export default function WeatherForecast() {
     queryFn: () => fetchHistoricWeatherForecast(searchText),
     refetchInterval: 3600000, // 1 hour in milliseconds
     refetchOnWindowFocus: false,
+    enabled: hasHydrated && enableWeatherForecastCalls,
   });
 
   const {
@@ -51,6 +64,7 @@ export default function WeatherForecast() {
     queryFn: () => fetchWeatherForecast(searchText),
     refetchInterval: 3600000, // 1 hour in milliseconds
     refetchOnWindowFocus: false,
+    enabled: hasHydrated && enableWeatherForecastCalls,
   });
 
   useEffect(() => {
@@ -59,13 +73,14 @@ export default function WeatherForecast() {
         forecastData?.forecast?.forecastday?.push(historicData[index]?.forecast.forecastday?.[0]);
       }
       setForecast(forecastData);
+      setPreviousSearchText(searchText);
     }
     setIsLoadingForecast(isLoadingForecast && isLoadingHistory);
   }, [forecastData, historicData, isLoadingForecast, isLoadingHistory]);
 
   return (
     <>
-      {isLoadingForecast || isLoadingHistory ? (
+      {isLoadingForecast || isLoadingHistory || !hasHydrated ? (
         <div className="grid grid-cols-6 gap-4">
           {Array.from({ length: 6 }).map((_, index) => (
             <div key={index} className="flex flex-col items-center bg-foreground rounded p-2 space-y-2">

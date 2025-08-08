@@ -5,13 +5,17 @@ import detectUnitsFromBrowser from '@/utils/detectUnitsFromBrowser';
 
 interface AppState {
   searchText: string;
+  previousSearchText: string;
   activeForecastDay: Current | undefined;
   units: Units;
   isLoadingForecast: boolean;
+  hasHydrated: boolean;
   setSearchText: (text: string) => void;
+  setPreviousSearchText: (text: string) => void;
   setActiveForecastDay: (current: Current) => void;
   setUnits: (units: Partial<Units>) => void;
   setIsLoadingForecast: (isLoading: boolean) => void;
+  setHasHydrated: () => void;
 }
 
 interface WeatherForecastState {
@@ -26,10 +30,18 @@ export const useWeatherStore = create<WeatherStore>()(
   persist(
     (set, get) => ({
       searchText: '',
+      previousSearchText: '',
       activeForecastDay: undefined,
       units: detectUnitsFromBrowser(),
       isLoadingForecast: false,
-      setSearchText: (text) => set({ searchText: text }),
+      hasHydrated: false,
+      setHasHydrated: () => set({ hasHydrated: true }),
+      setSearchText: (text) => {
+        set({ searchText: text });
+      },
+      setPreviousSearchText: (text) => {
+        set({ previousSearchText: text });
+      },
       setIsLoadingForecast: (isLoading) => set({ isLoadingForecast: isLoading }),
       setUnits: (newUnits) =>
         set((state) => ({
@@ -50,7 +62,11 @@ export const useWeatherStore = create<WeatherStore>()(
       name: 'weather-forecast-store',
       partialize: (state) => ({
         forecast: state.forecast,
+        previousSearchText: state.previousSearchText,
       }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated?.();
+      },
     }
   )
 );
