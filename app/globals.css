@@ -3,8 +3,8 @@
 :root {
   --background: #16394c;
   --foreground: #2a566d;
-  --cloud-color-1: #93c5fd; /* light blue */
-  --cloud-color-2: #60a5fa; /* darker blue */
+  --cloud-color-1: #91c0f8; /* light blue */
+  --cloud-color-2: #56a0ee; /* darker blue */
   --sway-distance: 6px;
   --sway-duration: 3s;
   --spin-duration: 6s;

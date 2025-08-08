@@ -26,7 +26,7 @@ const WeatherSummerCard: React.FC<WeatherSummerCardProps> = ({ forecastDay, curr
         </div>
       )}
       {current && (
-        <div className="text-white font-bold text-center items-center">
+        <div className="text-white font-bold text-center items-center min-[9rem]">
           <h1>{getDayOfWeek(current.last_updated, short)}</h1>
           <div className="w-full">{getWeatherIcon(current.condition.code, size, current.is_day)}</div>
           <div className="font-extralight">{current.condition.text}</div>
