@@ -7,9 +7,11 @@ interface AppState {
   searchText: string;
   activeForecastDay: Current | undefined;
   units: Units;
+  isLoadingForecast: boolean;
   setSearchText: (text: string) => void;
   setActiveForecastDay: (current: Current) => void;
   setUnits: (units: Partial<Units>) => void;
+  setIsLoadingForecast: (isLoading: boolean) => void;
 }
 
 interface WeatherForecastState {
@@ -26,8 +28,9 @@ export const useWeatherStore = create<WeatherStore>()(
       searchText: '',
       activeForecastDay: undefined,
       units: detectUnitsFromBrowser(),
+      isLoadingForecast: false,
       setSearchText: (text) => set({ searchText: text }),
-      setActiveForecastDay: (current) => set({ activeForecastDay: current }),
+      setIsLoadingForecast: (isLoading) => set({ isLoadingForecast: isLoading }),
       setUnits: (newUnits) =>
         set((state) => ({
           units: {
@@ -35,6 +38,7 @@ export const useWeatherStore = create<WeatherStore>()(
             ...newUnits,
           },
         })),
+      setActiveForecastDay: (current) => set({ activeForecastDay: current }),
       forecast: undefined,
       setForecast: (data) =>
         set((state) => ({

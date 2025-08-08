@@ -26,6 +26,7 @@ async function fetchHistoricWeatherForecast(searchLocation: string) {
 export default function WeatherForecast() {
   const weatherForecast = useWeatherStore((state) => state.forecast);
   const setForecast = useWeatherStore((state) => state.setForecast);
+  const setIsLoadingForecast = useWeatherStore((state) => state.setIsLoadingForecast);
   const searchText = useWeatherStore((state) => state.searchText);
 
   const {
@@ -59,18 +60,33 @@ export default function WeatherForecast() {
       }
       setForecast(forecastData);
     }
-  }, [forecastData, historicData]);
+    setIsLoadingForecast(isLoadingForecast && isLoadingHistory);
+  }, [forecastData, historicData, isLoadingForecast, isLoadingHistory]);
 
   return (
-    <div className="grid grid-cols-6 gap-4 max-h">
-      {weatherForecast?.forecast &&
-        weatherForecast?.forecast?.forecastday &&
-        weatherForecast?.forecast.forecastday
-          ?.sort((a: ForecastDay, b: ForecastDay) => a.date_epoch - b.date_epoch)
-          ?.map((day: ForecastDay, index: number) => {
-            if (weatherForecast?.current?.last_updated.includes(day.date)) return null;
-            return <WeatherSummerCard key={`${index}_${day.date_epoch}`} forecastDay={day} short={true} />;
-          })}
-    </div>
+    <>
+      {isLoadingForecast || isLoadingHistory ? (
+        <div className="grid grid-cols-6 gap-4">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="flex flex-col items-center bg-foreground rounded p-2 space-y-2">
+              <div className="w-8 h-3 bg-background rounded" />
+              <div className="w-10 h-10 bg-background  rounded-full" />
+              <div className="w-8 h-3 bg-background  rounded" />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-6 gap-4 max-h">
+          {weatherForecast?.forecast &&
+            weatherForecast?.forecast?.forecastday &&
+            weatherForecast?.forecast.forecastday
+              ?.sort((a: ForecastDay, b: ForecastDay) => a.date_epoch - b.date_epoch)
+              ?.map((day: ForecastDay, index: number) => {
+                if (weatherForecast?.current?.last_updated.includes(day.date)) return null;
+                return <WeatherSummerCard key={`${index}_${day.date_epoch}`} forecastDay={day} short={true} />;
+              })}
+        </div>
+      )}
+    </>
   );
 }
