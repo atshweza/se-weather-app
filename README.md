@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌦️ SE Weather App
 
-## Getting Started
+A modern weather app built with **Next.js**, **Tailwind CSS**, **Zustand**, and the WeatherAPI.com API.
 
-First, run the development server:
+## 🌐 Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[Live Link](#) <!-- TBA -->
+
+---
+
+## 📦 Features
+
+- Current weather details 
+- 3-Day Forecast & 3-Day History:
+- Auto-detects user's units (Metric/Imperial)
+- Responsive design for desktop & mobile
+- Local caching via Zustand with 1-hour expiry
+- Search for locations by city name
+
+---
+
+## 🛠️ Technologies
+
+- **Next.js** – App Router
+- **Tailwind CSS** – Utility-first styling
+- **Zustand** – Global state management (with persistence)
+- **React Query** – Data fetching & caching
+- **TypeScript** – Type safety
+
+---
+
+## 🧪 Testing
+
+We use **Jest** and **React Testing Library** for unit and integration testing.
+
+### ✅ What We Test
+
+- UI components like `WeatherDetails`,`WeatherForecast`, `SearchInput`, `WeatherSummaryCard`
+- Zustand store behavior (e.g., caching, default units)
+- API logic with mocked responses
+- Time and formatting utilities
+- Conditional rendering (e.g., loading states, error messages)
+
+### 📁 Test File Structure
+
+```
+components/
+├── WeatherDetails.tsx
+├── WeatherDetails.test.tsx     # Test for component
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### ▶️ Running Tests
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To run in watch mode:
 
-## Learn More
+```bash
+npm run test:watch
+```
 
-To learn more about Next.js, take a look at the following resources:
+To get test coverage:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run test:coverage
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## 🌍 Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Create a `.env` file in the root of your project with the following variables:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```env
+NEXT_PUBLIC_API_WEATHER_BASE_URL='https://api.weatherapi.com'
+NEXT_PUBLIC_API_KEY='Request from Owner'
+```
+
+> 🔐 Alternatively, register and use your own key from [WeatherAPI.com](https://www.weatherapi.com/).
+
+---
+
+## 📁 Folder Structure
+
+```
+/public
+  /logo           → app logo files
+/app
+  /components     → reusable UI components
+  /hooks          → custom React hooks
+  /styles         → tailwind styles & variables
+  /api            → fetcher methods (server/client)
+/store            → Zustand global store
+/utils            → utilities (formatting, date logic)
+```
+
+---
