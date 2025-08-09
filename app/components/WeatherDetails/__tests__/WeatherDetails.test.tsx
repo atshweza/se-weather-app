@@ -47,42 +47,38 @@ const mockSelectForecast = {
   forecast: {},
 };
 
-jest.mock('@/store/weatherStore', () => {
-  const zustand = jest.requireActual('zustand');
-
-  const mockStore = {
-    forecast: undefined,
-    setForecast: jest.fn(),
-  };
-
-  return { __esModule: true, default: zustand.create(() => mockStore) };
-});
+const setupWeather = (state: Partial<ReturnType<typeof useWeatherStore.getState>>) => {
+  act(() => {
+    useWeatherStore.setState({
+      forecast: mockForecast as WeatherForecast,
+      activeForecastDay: undefined,
+      isLoadingForecast: false,
+      units: {
+        temperature: 'c',
+        windSpeed: 'kph',
+        pressure: 'mb',
+        visibility: 'km',
+        precipitation: 'mm',
+      },
+      ...state,
+    });
+  });
+};
 
 describe('WeatherDetails', () => {
-  it('renders loading skeleton when isLoadingForecast is true', () => {
-    render(<WeatherDetails />);
+  beforeEach(() => {
+    jest.clearAllMocks();
+    setupWeather({});
+  });
 
+  it('renders loading skeleton when isLoadingForecast is true', () => {
+    setupWeather({ forecast: undefined, isLoadingForecast: true });
+    render(<WeatherDetails />);
     expect(document.querySelector('.flex.flex-col.gap-4.items-center')).toBeInTheDocument();
   });
 
   it('renders forecast details when data is available in metric ', () => {
-    act(() => {
-      useWeatherStore.setState({
-        forecast: mockForecast as WeatherForecast,
-        activeForecastDay: undefined,
-        isLoadingForecast: false,
-        units: {
-          temperature: 'c',
-          windSpeed: 'kph',
-          pressure: 'mb',
-          visibility: 'km',
-          precipitation: 'mm',
-        },
-      });
-    });
-
     render(<WeatherDetails />);
-
     expect(screen.getByText(/Cape Town, Western Cape, South Africa/)).toBeInTheDocument();
     expect(screen.getByText(/20°C/)).toBeInTheDocument();
     expect(screen.getByText(/15.0 kph/)).toBeInTheDocument();
@@ -91,23 +87,16 @@ describe('WeatherDetails', () => {
   });
 
   it('renders forecast details when data is available in imperial ', () => {
-    act(() => {
-      useWeatherStore.setState({
-        forecast: mockForecast as WeatherForecast,
-        activeForecastDay: undefined,
-        isLoadingForecast: false,
-        units: {
-          temperature: 'f',
-          windSpeed: 'mph',
-          pressure: 'in',
-          visibility: 'miles',
-          precipitation: 'in',
-        },
-      });
+    setupWeather({
+      units: {
+        temperature: 'f',
+        windSpeed: 'mph',
+        pressure: 'in',
+        visibility: 'miles',
+        precipitation: 'in',
+      },
     });
-
     render(<WeatherDetails />);
-
     expect(screen.getByText(/Cape Town, Western Cape, South Africa/)).toBeInTheDocument();
     expect(screen.getByText(/68°F/)).toBeInTheDocument();
     expect(screen.getByText(/9.3 mph/)).toBeInTheDocument();
@@ -116,23 +105,7 @@ describe('WeatherDetails', () => {
   });
 
   it('renders forecast details with correct overview for current weather', () => {
-    act(() => {
-      useWeatherStore.setState({
-        forecast: mockForecast as WeatherForecast,
-        activeForecastDay: undefined,
-        isLoadingForecast: false,
-        units: {
-          temperature: 'c',
-          windSpeed: 'kph',
-          pressure: 'mb',
-          visibility: 'km',
-          precipitation: 'mm',
-        },
-      });
-    });
-
     render(<WeatherDetails />);
-
     expect(screen.getByText(/Cape Town, Western Cape, South Africa/)).toBeInTheDocument();
     expect(screen.getByText(/20°C/)).toBeInTheDocument();
     expect(screen.getByText(/15.0 kph/)).toBeInTheDocument();
@@ -143,23 +116,7 @@ describe('WeatherDetails', () => {
   });
 
   it('renders update forecast details on selection', () => {
-    act(() => {
-      useWeatherStore.setState({
-        forecast: mockForecast as WeatherForecast,
-        activeForecastDay: undefined,
-        isLoadingForecast: false,
-        units: {
-          temperature: 'c',
-          windSpeed: 'kph',
-          pressure: 'mb',
-          visibility: 'km',
-          precipitation: 'mm',
-        },
-      });
-    });
-
     render(<WeatherDetails />);
-
     expect(screen.getByText(/Cape Town, Western Cape, South Africa/)).toBeInTheDocument();
     expect(screen.getByText(/20°C/)).toBeInTheDocument();
     expect(screen.getByText(/15.0 kph/)).toBeInTheDocument();
@@ -170,16 +127,7 @@ describe('WeatherDetails', () => {
 
     act(() => {
       useWeatherStore.setState({
-        forecast: mockForecast as WeatherForecast,
         activeForecastDay: mockSelectForecast.current as Current,
-        isLoadingForecast: false,
-        units: {
-          temperature: 'c',
-          windSpeed: 'kph',
-          pressure: 'mb',
-          visibility: 'km',
-          precipitation: 'mm',
-        },
       });
     });
     expect(screen.getByText(/Cape Town, Western Cape, South Africa/)).toBeInTheDocument();
