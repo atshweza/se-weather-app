@@ -25,8 +25,7 @@ interface WeatherForecastState {
 }
 
 type WeatherStore = AppState & WeatherForecastState;
-
-export const useWeatherStore = create<WeatherStore>()(
+const useWeatherStore = create<WeatherStore>()(
   persist(
     (set, get) => ({
       searchText: '',
@@ -70,3 +69,4 @@ export const useWeatherStore = create<WeatherStore>()(
     }
   )
 );
+export default useWeatherStore;

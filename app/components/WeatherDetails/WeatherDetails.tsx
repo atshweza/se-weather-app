@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { useWeatherStore } from '@/strore/weatherStore';
+import useWeatherStore from '@/store/weatherStore';
 import { formatPrecip, formatPressure, formatTemperature, formatWindSpeed } from '@/utils/formatters';
 
 import WeatherSummerCard from '../WeatherSummerCard/WeatherSummerCard';

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { useWeatherStore } from '@/strore/weatherStore';
+import useWeatherStore from '@/store/weatherStore';
 import { useQuery } from '@tanstack/react-query';
 
 import WeatherSummerCard from '../WeatherSummerCard/WeatherSummerCard';

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { useWeatherStore } from '@/strore/weatherStore';
+import useWeatherStore from '@/store/weatherStore';
 import { MagnifyingGlassIcon } from '@heroicons/react/16/solid';
 
 export default function SearchInput() {
