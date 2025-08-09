@@ -71,6 +71,12 @@ describe('WeatherDetails', () => {
     setupWeather({});
   });
 
+  afterEach(() => {
+    act(() => {
+      useWeatherStore.setState(useWeatherStore.getInitialState());
+    });
+  });
+
   it('renders loading skeleton when isLoadingForecast is true', () => {
     setupWeather({ forecast: undefined, isLoadingForecast: true });
     render(<WeatherDetails />);
