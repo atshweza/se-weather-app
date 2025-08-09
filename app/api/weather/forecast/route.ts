@@ -1,11 +1,12 @@
-import { publicIpv4 } from 'public-ip';
+import { headers } from 'next/headers';
 
 import { appConfig } from '@/utils/configs';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const searchLocation = searchParams.get('q');
-  const ip = await publicIpv4();
+  const headersList = await headers();
+  const ip = headersList.get('x-forwarded-for');
   let locationQuery = ip;
   if (searchLocation) locationQuery = searchLocation;
   const days = 4;

@@ -1,4 +1,4 @@
-import { publicIpv4 } from 'public-ip';
+import { headers } from 'next/headers';
 
 import { appConfig } from '@/utils/configs';
 import getPastThreeDates from '@/utils/getPastThreeDates';
@@ -6,8 +6,10 @@ import getPastThreeDates from '@/utils/getPastThreeDates';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const searchLocation = searchParams.get('q');
-  const ip = await publicIpv4();
-
+  const headersList = await headers();
+  const ip = headersList.get('x-forwarded-for');
+  let locationQuery = ip;
+  if (searchLocation) locationQuery = searchLocation;
   if (!appConfig.apiKey) {
     return new Response('Unauthorized', { status: 401 });
   }
@@ -18,7 +20,7 @@ export async function GET(request: Request) {
     const results: ForecastResponse[] = [];
 
     for (const date of dates) {
-      const url = `${appConfig.apiWeatherBaseUrl}/v1/history.json?key=${appConfig.apiKey}&q=${ip}&dt=${date}`;
+      const url = `${appConfig.apiWeatherBaseUrl}/v1/history.json?key=${appConfig.apiKey}&q=${locationQuery}&dt=${date}`;
       const response = await fetch(url, options);
 
       if (!response.ok) {
