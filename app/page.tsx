@@ -1,4 +1,4 @@
-import { useWeatherStore } from '@/strore/weatherStore';
+import { useWeatherStore } from '@/store';
 
 import Header from './components/Header/Header';
 import WeatherDetails from './components/WeatherDetails/WeatherDetails';

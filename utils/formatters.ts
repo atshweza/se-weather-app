@@ -1,4 +1,4 @@
-import { useWeatherStore } from '@/strore/weatherStore';
+import useWeatherStore from '@/store/weatherStore';
 
 export function formatTemperature(tempC: number, tempF: number): string {
   const unit = useWeatherStore.getState().units.temperature;

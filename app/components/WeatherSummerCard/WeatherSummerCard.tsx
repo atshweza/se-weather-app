@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { useWeatherStore } from '@/strore/weatherStore';
+import useWeatherStore from '@/store/weatherStore';
 import { formatTemperature } from '@/utils/formatters';
 import getDayOfWeek from '@/utils/getDayOfWeek';
 import { getWeatherIcon } from '@/utils/getWeatherIcon';
