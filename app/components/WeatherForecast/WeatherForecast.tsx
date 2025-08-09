@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import useWeatherStore from '@/store/weatherStore';
 import { useQuery } from '@tanstack/react-query';

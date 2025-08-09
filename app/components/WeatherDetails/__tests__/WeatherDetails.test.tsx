@@ -121,7 +121,7 @@ describe('WeatherDetails', () => {
     expect(screen.getByText(/Friday/)).toBeInTheDocument();
   });
 
-  it('renders update forecast details on selection', () => {
+  it('updates when activeForecastDay changes', () => {
     render(<WeatherDetails />);
     expect(screen.getByText(/Cape Town, Western Cape, South Africa/)).toBeInTheDocument();
     expect(screen.getByText(/20°C/)).toBeInTheDocument();

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import SearchInput from '../SeachInput/SearchInput';
+import SearchInput from '../SearchInput/SearchInput';
 
 export default function Header() {
   return (
