@@ -2,9 +2,7 @@
 
 A modern weather app built with **Next.js**, **Tailwind CSS**, **Zustand**, and the WeatherAPI.com API.
 
-## 🌐 Live Demo
-# SE Weather App
-
+## 🌐 Live Demo SE Weather App
 [Live Link](https://se-weather-app.vercel.app/)
 
 ---
