@@ -110,7 +110,7 @@ limitations.
 #### WeatherAPI.com
 
 -   **Free Tier:** 1 million requests/month
--   **Features:** Current weather, 14-day forecast, historical data
+-   **Features:** Current weather, 7-day forecast, historical data
 -   **Trade-off:** Although the free tier has a generous 1 million
     monthly requests, heavy usage or server-side polling can quickly
     consume this allowance.
