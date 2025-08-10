@@ -3,8 +3,9 @@
 A modern weather app built with **Next.js**, **Tailwind CSS**, **Zustand**, and the WeatherAPI.com API.
 
 ## 🌐 Live Demo
+# SE Weather App
 
-[Live Link](#) <!-- TBA -->
+[Live Link](https://se-weather-app.vercel.app/)
 
 ---
 
@@ -98,3 +99,45 @@ NEXT_PUBLIC_API_KEY='Request from Owner'
 ```
 
 ---
+# Weather API Design Decisions
+
+## Brief Explanation of Design Decisions and Trade-offs
+
+When building this weather application, we had to carefully select an
+API provider that met both our functional requirements and cost
+limitations.
+
+### API Choice: WeatherAPI.com vs Weatherstack
+
+#### WeatherAPI.com
+
+-   **Free Tier:** 1 million requests/month
+-   **Features:** Current weather, 14-day forecast, historical data
+-   **Trade-off:** Although the free tier has a generous 1 million
+    monthly requests, heavy usage or server-side polling can quickly
+    consume this allowance.
+
+#### Weatherstack
+
+-   **Free Tier:** 100 requests/month
+-   **Features:** Current weather only (no forecast, no historical data)
+-   **Trade-off:** The low request limit and missing historical/forecast
+    functionality make it unsuitable for our use case.
+
+### Why We Chose WeatherAPI.com
+
+1.  **Feature Completeness:** Historical and forecast weather data are
+    essential for the app.
+2.  **Generous Free Tier:** While the 1 million/month free tier can
+    still be exhausted quickly with high traffic, it's far better than
+    Weatherstack's 100/month.
+3.  **Developer Experience:** WeatherAPI.com offers clear documentation
+    and easy integration.
+
+### Considerations
+
+-   **API Call Limitations:** Even with 1 million calls/month, a
+    high-traffic app using server-side requests could hit the limit
+    quickly.
+-   **Caching Strategy:** Implemented client-side and server-side
+    caching to reduce redundant API calls.
